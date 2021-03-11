@@ -21,12 +21,12 @@ $linkedList = new ListNode(0, null);
 
 // 2.访问数据
 $isExsited = false;
-while($linkedList){
+while($linkedList->next){
     // 2.1.1 如果此数据已被缓存在链表中
-    if($linkedList->val == $accessData){
+    if($linkedList->next->val == $accessData){
         $isExsited = true;
         // 2.1.2 将其从原来的位置删除，
-        // TBD
+        $linkedList->next = $linkedList->next->next;
         // 2.1.3 然后再插入到链表的头部。
         // TBD
         break;
