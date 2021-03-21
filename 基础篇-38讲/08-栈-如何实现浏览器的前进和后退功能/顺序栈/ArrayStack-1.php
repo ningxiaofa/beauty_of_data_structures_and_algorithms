@@ -44,4 +44,18 @@ class ArrayStack1
   {
     return $this->count;
   }
+
+  // 清空栈
+  public function clear()
+  {
+    $this->array = [];
+    $this->count = 0;
+  }
+
+   // 返回栈顶元素, 但不出栈
+   public function peek()
+   {
+     if ($this->isEmpty()) return null;
+     return $this->array[$this->count -1];
+   }
 }

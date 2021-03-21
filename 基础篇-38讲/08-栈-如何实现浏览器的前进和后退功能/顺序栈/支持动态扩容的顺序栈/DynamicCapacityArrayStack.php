@@ -26,7 +26,7 @@ class DynamicCapacityArrayStack
             // 申请内存
             $newArray = []; // 容量是原容器的两倍
             // 拷贝数据到新的容器中
-            for($i = 0; $i < $this->n; $i++){
+            for ($i = 0; $i < $this->n; $i++) {
                 $newArray[] = $this->array[$i];
             }
             // 然后将新的容器赋值为赋值变量数组
@@ -40,6 +40,38 @@ class DynamicCapacityArrayStack
     {
         if (count($this->array) === 0) return null;
         return array_pop($this->array);
+    }
+
+    // 判空
+    public function isEmpty()
+    {
+        return $this->count === 0 ? true : false;
+    }
+
+    // 判满
+    public function isFull()
+    {
+        return $this->count === $this->n ? true : false;
+    }
+
+    // 栈的大小
+    public function size()
+    {
+        return $this->count;
+    }
+
+    // 清空栈
+    public function clear()
+    {
+        $this->array = [];
+        $this->count = 0;
+    }
+
+    // 返回栈顶元素, 但不出栈
+    public function peek()
+    {
+        if ($this->isEmpty()) return null;
+        return $this->array[$this->count - 1];
     }
 }
 

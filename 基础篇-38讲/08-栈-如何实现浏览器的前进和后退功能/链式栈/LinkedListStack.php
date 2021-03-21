@@ -29,11 +29,11 @@ class LinkedListStack
     // 出栈
     public function pop()
     {
-        if($this->isEmpty()) return false;
+        if ($this->isEmpty()) return false;
         $itemValue = $this->head->val;
         $this->head = $this->head->next;
         $this->count--;
-        return $itemValue;        
+        return $itemValue;
     }
 
     // 判空
@@ -52,5 +52,12 @@ class LinkedListStack
     public function size()
     {
         return $this->count;
+    }
+
+    // 清空栈
+    public function clear()
+    {
+        $this->head = null;
+        $this->count = 0;
     }
 }

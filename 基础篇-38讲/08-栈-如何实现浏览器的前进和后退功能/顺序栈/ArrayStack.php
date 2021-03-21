@@ -20,7 +20,7 @@ class ArrayStack
   // 入栈
   public function push($item)
   {
-    if($this->isFull()) return false;
+    if ($this->isFull()) return false;
     $this->array[$this->count] = $item; // 如此写, 便用在出栈时, 再释放该元素 -- 方式一 2-1
     // 如果是直接添加尾部
     // $this->array[] = $item;
@@ -32,9 +32,9 @@ class ArrayStack
   // 出栈
   public function pop()
   {
-    if($this->isEmpty()) return null;
-    $item = $this->array[$this->count -1];
-    unset($this->array[$this->count -1]);  // 不用显示释放, 后面入栈时, 会覆盖 -- 方式一 2-1 不过在学习的时候,还是建议释放
+    if ($this->isEmpty()) return null;
+    $item = $this->array[$this->count - 1];
+    unset($this->array[$this->count - 1]);  // 不用显示释放, 后面入栈时, 会覆盖 -- 方式一 2-1 不过在学习的时候,还是建议释放
     $this->count--;
     return $item;
   }
@@ -55,5 +55,19 @@ class ArrayStack
   public function size()
   {
     return $this->count;
+  }
+
+  // 清空栈
+  public function clear()
+  {
+    $this->array = [];
+    $this->count = 0;
+  }
+
+  // 返回栈顶元素, 但不出栈
+  public function peek()
+  {
+    if ($this->isEmpty()) return null;
+    return $this->array[$this->count -1];
   }
 }
