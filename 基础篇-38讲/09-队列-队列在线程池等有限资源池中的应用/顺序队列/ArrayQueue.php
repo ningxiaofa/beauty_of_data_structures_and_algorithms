@@ -23,20 +23,33 @@ class ArrayQueue
     // 入队
     public function enqueue($item)
     {
-        // 如果tail == n 表示队列已经满了    
-        if ($this->tail === $this->n) return false;    
+        // 如果tail == n 表示队列已经满了
+        // if ($this->tail === $this->n) return false; // 注释改行，优化代码，因为此时数组中还有空间可用
+        if ($this->tail === $this->n) {
+            // $this->tail为n, $this->head为0，说明确实已经满了
+            if ($this->head === 0) return false;
+            // 数据搬移
+            for ($i = $this->head; $i < $this->tail; $i++) {
+                $this->items[$i - $this->head] = $this->items[$i];
+            }
+            // 搬移完之后, 重新更新head, tail
+            $this->head = 0;
+            $this->tail -= $this->head;
+        }
+
         $this->items[$this->tail] = $item;
         ++$this->tail;
         return true;
     }
 
     // 出队
-    public function dequeue(){
+    public function dequeue()
+    {
         // 如果head == tail 表示队列为空
-        if($this->head === $this->tail) return null;
-        $item = $this->items[$this->head]; 
+        if ($this->head === $this->tail) return null;
+        $item = $this->items[$this->head];
         // 显式删除元素, 但是不推荐
-        // unset($this->items[$this->head]);
+        // unset($this->items[$this->head]); // 当涉及到数据搬移，这行代码不能使用，否则出错
         ++$this->head;
         return $item;
     }
