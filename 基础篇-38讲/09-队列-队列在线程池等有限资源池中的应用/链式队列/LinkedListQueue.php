@@ -13,16 +13,25 @@ require_once("ListNode.php");
 
 class LinkedListQueue
 {
+    private $n;
+    private $count = 0; // 会存在【多】线程安全问题
     // 头指针，尾指针
     private $head = null;
     private $tail = null;
+
+    public function __construct($capacity)
+    {
+        $this->n = $capacity;
+    }
 
     // 入队
     public function enqueue($item)
     {
         $listNode = new ListNode($item);
 
-        // 不存在队满的情况，链式队列本身就是无界队列
+        // 不存在队满的情况，链式队列本身就是无界队列 ？ 只是基于链表实现的队列也可以指定队列大小
+        if($this->count === $this->n) return false;
+
         if ($this->head == null) {
             $this->head = $listNode;
             $this->tail = $listNode;
@@ -30,6 +39,8 @@ class LinkedListQueue
             $this->tail->next = $listNode;
             $this->tail = $listNode;
         }
+
+        $this->count++;
 
         return true;
     }
@@ -41,6 +52,9 @@ class LinkedListQueue
         if($this->head === $this->tail) return null;
         $item = $this->head->val;
         $this->head = $this->head->next;
+
+        $this->count--;
+
         return $item;
     }
 }

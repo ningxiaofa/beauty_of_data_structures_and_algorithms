@@ -1,1 +1,86 @@
-1. https://github.com/kolinkuang/algo-demos/blob/master/queue/circularLinkedListQueue.js
+Javascript实现: // 基于链表
+https://github.com/kolinkuang/algo-demos/blob/master/queue/circularLinkedListQueue.js
+
+class CircularLinkedListQueue {
+
+    constructor(capacity) {
+        this.n = capacity;
+        this.head = this.tail = this._buildEmptyLinkedList(capacity);
+    }
+
+    _buildEmptyLinkedList(num = 1) {
+        const sentinel = new ListNode();
+        let current = sentinel;
+
+        for (let i = 0; i < num; i++) {
+            let node = new ListNode();
+            current = current.next = node;
+        }
+
+        current.next = sentinel;
+        return sentinel;
+    }
+
+    enqueue(itemVal) {
+        if (this.tail.next === this.head) {
+            return false;
+        }
+        this.tail.val = itemVal;
+        this.tail = this.tail.next;
+        return true;
+    }
+
+    dequeue() {
+        if (this.head === this.tail) {
+            return null;
+        }
+        let result;
+        [result, this.head] = [this.head.val, this.head.next];
+        return result;
+    }
+
+}
+
+class ListNode {
+
+    constructor(val, next) {
+        this.val = val;
+        this.next = next;
+    }
+
+}
+
+
+Java实现：// 基于数组
+public class CircularQueue {
+  // 数组：items，数组大小：n
+  private String[] items;
+  private int n = 0;
+  // head表示队头下标，tail表示队尾下标
+  private int head = 0;
+  private int tail = 0;
+
+  // 申请一个大小为capacity的数组
+  public CircularQueue(int capacity) {
+    items = new String[capacity];
+    n = capacity;
+  }
+
+  // 入队
+  public boolean enqueue(String item) {
+    // 队列满了
+    if ((tail + 1) % n == head) return false;
+    items[tail] = item;
+    tail = (tail + 1) % n;
+    return true;
+  }
+
+  // 出队
+  public String dequeue() {
+    // 如果head == tail 表示队列为空
+    if (head == tail) return null;
+    String ret = items[head];
+    head = (head + 1) % n;
+    return ret;
+  }
+}
